@@ -1,0 +1,63 @@
+import { Database } from '../firebase'
+import { model } from '../model'
+import { Card, CardList } from './cards'
+
+export class Site {
+  constructor() {
+    this.goodlist = new Array()
+  }
+
+  async init() {
+    await this.getData()
+    this.render(this.goodlist)
+  }
+
+  async getData() {
+    const database = new Database()
+    const goodList = []
+    return database.fetch().then((data) => {
+      data.forEach((item) => {
+        let goodListItem = goodList.find(
+          (cardList) => cardList.type === item.type
+        )
+        if (!goodListItem) {
+          goodList.push(
+            new CardList(item.type, [
+              new Card(item.title, item.text, item.ref, item.price),
+            ])
+          )
+        } else {
+          goodListItem.push(
+            new Card(item.title, item.text, item.ref, item.price)
+          )
+        }
+      })
+      this.goodlist = goodList
+    })
+  }
+
+  render(list) {
+    list.forEach((item) => {
+      let $listItem = document.createElement('button')
+      $listItem.classList.add('list-group-item')
+      $listItem.classList.add('list-group-item-action')
+      $listItem.textContent = item.type
+      document.querySelector('.list-group').appendChild($listItem)
+      const $cardGroup = document.querySelector('.card-group-user')
+      $listItem.onclick = () => {
+        // document.querySelector('.price-bar').textContent = item.type
+        $cardGroup.innerHTML = ''
+        item.list.forEach((card) => {
+          card.toHTML()
+        })
+      }
+    })
+  }
+
+  upload() {
+    const database = new Database()
+    model.forEach((item) => {
+      database.post(item)
+    })
+  }
+}
