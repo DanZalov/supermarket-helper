@@ -1,0 +1,86 @@
+/* desktop case */
+.list-group {
+  width: 200px;
+  margin: 10px;
+  margin-top: 200px;
+}
+
+.list-group-item {
+  text-align: center;
+  padding: 8px;
+}
+
+.list-group-item-action:focus {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.container {
+  /* height: 800px; */
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  /* align-items: center; */
+}
+
+.price-bar {
+  text-align: center;
+  margin: 10px;
+  font-size: x-large;
+  font-weight: bold;
+}
+
+.card-group-user {
+  display: flex;
+  flex-wrap: wrap;
+  width: 900px;
+}
+
+.card {
+  text-align: center;
+  width: 280px;
+  margin: 10px;
+}
+
+.card img {
+  object-fit: contain;
+  height: 300px;
+}
+
+.card-price {
+  font-weight: bold;
+  margin: 0px;
+}
+
+/* mobile case */
+@media only screen and (max-width: 480px) {
+  .list-group {
+    width: 100px;
+    margin: 5px;
+    margin-top: 200px;
+    position: fixed;
+  }
+
+  .list-group-item {
+    text-align: left;
+  }
+
+  .card-table {
+    position: relative;
+    left: 110px;
+    width: 230px;
+  }
+
+  .card-group-user {
+    width: 230px;
+  }
+
+  .card {
+    width: 215px;
+    margin: 5px;
+  }
+
+  .card img {
+    height: 230px;
+  }
+}
